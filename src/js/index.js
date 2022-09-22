@@ -36,8 +36,11 @@ btnSearch.addEventListener('click', evt => {
               );
             } else {
             renderImageList(data.hits)
+            console.log('hits', data.hits)
+            console.log('totalhits', data.totalHits);
+
             Notiflix.Notify.success(
-              `Hooray! We found ${data.totalhits} images.`
+              `Hooray! We found ${data.totalHits} images.`
             );
                 btnLoadMore.style.display = 'block'
                 simplelightbox.refresh();

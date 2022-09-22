@@ -15,9 +15,9 @@ button {
 
 img {
   display: block;
-  max-width: 100%;
+  width: 100%;
   height: 100%;
-  background-size: cover;
+  object-fit: cover;
 }
 
 a {
@@ -25,53 +25,49 @@ a {
   font-style: normal;
 }
 
-.load-more {
-  font-family: inherit;
-  font-style: normal;
-  font-size: 16px;
-  line-height: 1.87;
-  font-weight: 700;
-  letter-spacing: 0.06em;
-  text-align: center;
-  color: #0b0ff3;
-  border-radius: 4px;
-    margin-bottom: 10px;
-  justify-content: center;
-}
-
-// .search { //поле пошуку і кнопка разом
-
-// }
-
-.search-form {
+.search {
+    position: fixed;
     padding: 8px;
     display: flex;
     justify-content: center;
     background-color: #293bd2;
-    border-radius: 4px;
+    width: 100%;
 }
 
-.search-form-btn {
+// .search-form {
+//     border-radius: 4px;
+// }
+
+.search-form-btn,
+.load-more {
 font-family: inherit;
   font-style: normal;
   font-size: 16px;
-  line-height: 1.87;
+    line-height: 1.4;
+    border-radius: 2px;
   font-weight: 700;
   letter-spacing: 0.06em;
+    text-align: center;
+}
+
+.load-more {
+
+  margin-bottom: 25px;
+  margin-left: 50%;
 }
 
 .gallery { //вся галерея карток
-  display: flex;
-  flex-wrap: wrap;
-  margin: 20px;
-  justify-content: center;
+    display: flex;
+    flex-wrap: wrap;
+    padding: 50px 20px;
+    justify-content: center;
 }
 
 .photo-card{ 
     width: calc(25% - 20px);
     margin: 8px;
     box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.12), 0px 1px 1px rgba(0, 0, 0, 0.14), 0px 2px 1px rgba(0, 0, 0, 0.2);
-  border-radius: 0px 0px 4px 4px;
+    border-radius: 0px 0px 4px 4px;
 }
 
 .img-wrap { //обгортка картинки
