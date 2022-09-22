@@ -1,0 +1,94 @@
+body {
+  font-family: 'Open Sans', sans-serif;
+  font-style: normal;
+  color: #111111;
+}
+
+p {
+  margin: 0;
+}
+
+button {
+  cursor: pointer;
+  border: none;
+}
+
+img {
+  display: block;
+  max-width: 100%;
+  height: 100%;
+  background-size: cover;
+}
+
+a {
+  text-decoration: none;
+  font-style: normal;
+}
+
+.load-more {
+  font-family: inherit;
+  font-style: normal;
+  font-size: 16px;
+  line-height: 1.87;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-align: center;
+  color: #0b0ff3;
+  border-radius: 4px;
+    margin-bottom: 10px;
+  justify-content: center;
+}
+
+// .search { //поле пошуку і кнопка разом
+
+// }
+
+.search-form {
+    padding: 8px;
+    display: flex;
+    justify-content: center;
+    background-color: #293bd2;
+    border-radius: 4px;
+}
+
+.search-form-btn {
+font-family: inherit;
+  font-style: normal;
+  font-size: 16px;
+  line-height: 1.87;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+}
+
+.gallery { //вся галерея карток
+  display: flex;
+  flex-wrap: wrap;
+  margin: 20px;
+  justify-content: center;
+}
+
+.photo-card{ 
+    width: calc(25% - 20px);
+    margin: 8px;
+    box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.12), 0px 1px 1px rgba(0, 0, 0, 0.14), 0px 2px 1px rgba(0, 0, 0, 0.2);
+  border-radius: 0px 0px 4px 4px;
+}
+
+.img-wrap { //обгортка картинки
+height: 80%;
+}
+
+.info { //обгортка цирф (всіх)
+   display: flex;
+   justify-content: space-evenly;
+}
+
+.info-item { //цифри
+padding: 2px 5px;
+}
+
+.info-item-decor {
+    display: flex;
+    justify-content: center;
+    padding-top: 5px;
+}

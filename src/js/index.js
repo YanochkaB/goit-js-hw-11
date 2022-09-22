@@ -1,4 +1,4 @@
-import { fetchImages } from './fetchImages'
+import { fetchImages } from './fetchImages';
 
 import SimpleLightbox from 'simplelightbox';
 import 'simplelightbox/dist/simple-lightbox.min.css';
@@ -6,9 +6,12 @@ import Notiflix from 'notiflix';
  
 
 const input = document.querySelector('input'); //форма пошуку
-const btnSearch = document.querySelector('.submit'); //кнопка пошуку
+const btnSearch = document.querySelector('.search-form-btn'); //кнопка пошуку
 const gallery = document.querySelector('.gallery'); //галерея
 const btnLoadMore = document.querySelector('.load-more'); //кнопка більше
+
+console.log(input)
+console.log(btnSearch)
 
 let simplelightbox = new SimpleLightbox('.gallery a')
 
@@ -27,13 +30,15 @@ btnSearch.addEventListener('click', evt => {
     //пошук (за умовами)
     if (valueTrim !== '') {
         fetchImages(valueTrim, numberPage).then(data => {
-            if (data.hits.length === 0) {
-                alert(
-                    'Sorry, there are no images matching your search query. Please try again.'
-                );
+          if (data.hits.length === 0) {
+              Notiflix.Notify.failure(
+                'Sorry, there are no images matching your search query. Please try again.'
+              );
             } else {
-                renderImageList(data.hits)
-                alert(`Hooray! We found ${data.totalhits} images.`);
+            renderImageList(data.hits)
+            Notiflix.Notify.success(
+              `Hooray! We found ${data.totalhits} images.`
+            );
                 btnLoadMore.style.display = 'block'
                 simplelightbox.refresh();
             }
@@ -47,7 +52,7 @@ btnLoadMore.addEventListener('click', () => {
     const valueTrim = input.value.trim();
     fetchImages(valueTrim, numberPage).then(data => {
       if (data.hits.length === 0) {
-        alert(
+        Notiflix.Notify.failure(
           'Sorry, there are no images matching your search query. Please try again.'
         );
       } else {
@@ -72,19 +77,23 @@ function renderImageList(images) {
     const resolt = images
         .map(image => {
             return `<div class="photo-card">
-  <a href='${image.largeImageURL}'><img src="${image.webformatURL}" alt="${image.tags}" loading="lazy" /></a>
+  <div class="img-wrap">
+    <a href='${image.largeImageURL}'>
+    <img src="${image.webformatURL}" alt="${image.tags}" loading="lazy" />
+    </a>
+  </div>
   <div class="info">
     <p class="info-item">
-      <b>${image.likes}</b>
+      <b class="info-item-decor">Likes</b><span class="info-item-decor">${image.likes}</span>
     </p>
     <p class="info-item">
-      <b>${image.views}</b>
+      <b class="info-item-decor">Views</b><span class="info-item-decor">${image.views}</span>
     </p>
     <p class="info-item">
-      <b>${image.comments}</b>
+      <b class="info-item-decor">Comments</b><span class="info-item-decor">${image.comments}</span>
     </p>
     <p class="info-item">
-      <b>${image.downloads}</b>
+      <b class="info-item-decor">Downloads</b><span class="info-item-decor">${image.downloads}</span>
     </p>
   </div>
 </div>`;
