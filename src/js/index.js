@@ -1,3 +1,59 @@
+// import NewsApiService from './fetchImages'
+// import createGalleryMarkup from './gallery';
+
+
+// import SimpleLightbox from 'simplelightbox';
+// import 'simplelightbox/dist/simple-lightbox.min.css';
+// import Notiflix from 'notiflix';
+ 
+// const refs = {
+//   searchForm: document.querySelector('.search-form'),
+//   imagesContainer: document.querySelector('.gallery'),
+//   loadMoreBtn: document.querySelector('.load-more'),
+// };
+
+// const newsApiService = new NewsApiService();
+
+// refs.searchForm.addEventListener('submit', onSearch);
+// refs.loadMoreBtn.addEventListener('click', onLoadMore);
+
+// function onSearch(e) {
+//   e.preventDefault();
+
+//   clearGallery();
+//   newsApiService.query = e.currentTarget.elements.searchQuery.value;
+//   newsApiService.resetPage();
+//   newsApiService.fetchImages().then(appendImagesMarkup);
+// }
+
+// function onLoadMore() {
+//   newsApiService.fetchImages().then(appendImagesMarkup);
+// }
+
+// // //відповідь:
+// // webformatURL - посилання на маленьке зображення для списку карток.
+// // largeImageURL - посилання на велике зображення.
+// // tags - рядок з описом зображення. Підійде для атрибуту alt.
+// // likes - кількість лайків.
+// // views - кількість переглядів.
+// // comments - кількість коментарів.
+// // downloads - кількість завантажень.
+
+// function appendImagesMarkup(hits) {
+//   refs.imagesContainer.insertAdjacentHTML(
+//     'beforeend',
+//     createGalleryMarkup(hits)
+//   );
+// }
+
+// function clearGallery() {
+//   refs.imagesContainer.innerHTML = '';
+// }
+
+
+
+
+
 import { fetchImages } from './fetchImages';
 
 import SimpleLightbox from 'simplelightbox';
@@ -5,17 +61,13 @@ import 'simplelightbox/dist/simple-lightbox.min.css';
 import Notiflix from 'notiflix';
  
 
-const input = document.querySelector('input'); //форма пошуку
+// const input = document.querySelector('input'); //форма пошуку
 const btnSearch = document.querySelector('.search-form-btn'); //кнопка пошуку
 const gallery = document.querySelector('.gallery'); //галерея
 const btnLoadMore = document.querySelector('.load-more'); //кнопка більше
 
-console.log(input)
-console.log(btnSearch)
-
+btnHidden();
 let simplelightbox = new SimpleLightbox('.gallery a')
-
-btnLoadMore.style.display = 'none'
 
 let numberPage = 1;
 
@@ -23,10 +75,8 @@ btnSearch.addEventListener('click', evt => {
     evt.preventDefault();
     //очистити галерею (виклик функції)
     clearGallery();
-
     //видалити пробіли на початку і вкінці рядка запиту
     const valueTrim = input.value.trim(); //запит
-
     //пошук (за умовами)
     if (valueTrim !== '') {
         fetchImages(valueTrim, numberPage).then(data => {
@@ -36,33 +86,45 @@ btnSearch.addEventListener('click', evt => {
               );
             } else {
             renderImageList(data.hits)
-            console.log('hits', data.hits)
-            console.log('totalhits', data.totalHits);
-
             Notiflix.Notify.success(
               `Hooray! We found ${data.totalHits} images.`
             );
-                btnLoadMore.style.display = 'block'
-                simplelightbox.refresh();
-            }
+            // if (data.totalHits > 40) {
+            // btnLoadMore.classList.remove('is-hidden');
+            // }
+            simplelightbox.refresh();
+          }
+// if (data.totalHits > 40) {
+//   btnShown();
+// } else {
+//   btnHidden();
+//   Notiflix.Notify.success(
+//     "We're sorry, but you've reached the end of search results."
+//   );}
         })
     }
 })
 
 btnLoadMore.addEventListener('click', () => {
-    numberPage++
-    btnLoadMore.style.display = 'none'
+  numberPage++
+    // btnLoadMore.style.display = 'none'
     const valueTrim = input.value.trim();
-    fetchImages(valueTrim, numberPage).then(data => {
-      if (data.hits.length === 0) {
-        Notiflix.Notify.failure(
-          'Sorry, there are no images matching your search query. Please try again.'
+  fetchImages(valueTrim, numberPage).then(data => {
+    if (data.totalHits < 40) {
+        Notiflix.Notify.success(
+          "We're sorry, but you've reached the end of search results."
         );
       } else {
-        renderImageList(data.hits);
-        btnLoadMore.style.display = 'block';
-        simplelightbox.refresh();
-      }
+      renderImageList(data.hits);
+      // if (data.hits.length === 0) {
+      //   Notiflix.Notify.failure(
+      //     'Sorry, there are no images matching your search query. Please try again.'
+      //   );
+      // } else {
+      //   renderImageList(data.hits);
+      //   // btnLoadMore.style.display = 'block';
+      simplelightbox.refresh();
+    }
     });
 
 })
@@ -111,6 +173,12 @@ function clearGallery() {
     btnLoadMore.style.display = 'none'
 }
 
+function btnHidden() {
+  btnLoadMore.classList.add('is-hidden');
+}
+function btnShown() {
+  btnLoadMore.classList.remove('is-hidden');
+}
 
 
 
